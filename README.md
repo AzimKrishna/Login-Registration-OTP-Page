@@ -68,9 +68,6 @@ A simple and secure login and registration system with OTP (One-Time Password) f
 
 ## Feedback and Contributions 💌
 
-If you have any feedback or want to contribute to this project, feel free to contact the developer:
-
-**Developer:** Azim Krishna
-**Email:** azimbaji19@gmail.com
+If you have any feedback or want to contribute to this project, feel free to contact the developer Azim Krishna, at azimbaji19@gmail.com
 
 Happy coding! 🚀
