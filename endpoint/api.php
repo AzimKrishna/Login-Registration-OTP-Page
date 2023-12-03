@@ -12,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
 
     switch ($action){
         case "sendotp" :
-                        // Get the email from the request
                         $email = isset($_POST['email']) ? $_POST['email'] : '';
 
                         // Validate email
@@ -25,25 +24,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
                         // Generate OTP
                         $otp = generateOTP();
 
-                        // Save email and OTP in session
                         $_SESSION['otp_email'] = $email;
                         $_SESSION['otp'] = $otp;
 
-                        // Your email sending logic here
+        
                         $subject = "Your OTP for Registration";
                         $message = "Your OTP is: " . $otp;
                         $message .= "<br>Please do not share the OTP!";
                         $message .= "<br>This OTP is valid for 5 min only.";
 
-                        // Replace the following line with your mail server configuration
-
                         $uid = uniqid();
-                        $header = "From: CelestaCampus Team <celestacampus.team@gmail.com>" . "\r\n";
-                        $header .= "Reply-To: celestacampus.team@gmail.com" . "\r\n";
+                        $header = "From: Password Team <youremail@gmail.com>" . "\r\n";
+                        $header .= "Reply-To: youremail@gmail.com" . "\r\n";
                         $header .= "MIME-Version: 1.0" . "\r\n";
                         $header .= "Content-Type: text/html; boundary=\"".$uid."\"\r\n\r\n";
 
-                        // message & attachment
+
                         $nmessage .= "Content-type:text/html; charset=iso-8859-1\r\n";
                         $nmessage .= "Content-Transfer-Encoding: base64\r\n";
 
@@ -62,31 +58,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
 
                         $enteredOTP = isset($_POST['otp']) ? $_POST['otp'] : '';
 
-                        // Retrieve the saved OTP, email, and timestamp from the session
                         $savedOTP = isset($_SESSION['otp']) ? $_SESSION['otp'] : '';
                         $savedEmail = isset($_SESSION['otp_email']) ? $_SESSION['otp_email'] : '';
                         $savedTimestamp = isset($_SESSION['otp_timestamp']) ? $_SESSION['otp_timestamp'] : 0;
             
                         $enteredEmail = isset($_POST['otp_email']) ? $_POST['otp_email'] : '';
             
-                        // Check if both entered OTP and email match the saved values
                         if ($enteredOTP == $savedOTP && $enteredEmail == $savedEmail) {
                             // Check if the timestamp is within 5 minutes
                             if (time() <= ($savedTimestamp + 300)) {
-                                // Destroy the OTP, email, and timestamp session variables if both are verified          
                                 echo "OTP Verified";
                             } else {
                                 unset($_SESSION['otp']);
                                 unset($_SESSION['otp_email']);
                                 unset($_SESSION['otp_timestamp']);
-                                echo "OTP Expired"; // OTP is valid, but the timestamp is expired
+                                echo "OTP Expired"; 
                             }
                         } else {
                             echo "Invalid OTP or Email";
                         }
                         break;
         case "registration":
-                        // Retrieve the saved OTP, email, and timestamp from the session
                         $savedOTP = isset($_SESSION['otp']) ? $_SESSION['otp'] : '';
                         $savedEmail = isset($_SESSION['otp_email']) ? $_SESSION['otp_email'] : '';
                         $savedTimestamp = isset($_SESSION['otp_timestamp']) ? $_SESSION['otp_timestamp'] : 0;
@@ -94,7 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
                         $enteredEmail = isset($_POST['email']) ? $_POST['email'] : '';
                         $enteredOTP = isset($_POST['otp']) ? $_POST['otp'] : '';
 
-                        // Check if both entered OTP and email match the saved values
                         if ($enteredOTP == $savedOTP && $enteredEmail == $savedEmail) {
                             // Check if the timestamp is within 5 minutes
                             if (time() <= ($savedTimestamp + 300)) {

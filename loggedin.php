@@ -7,7 +7,6 @@ function isAuthenticated() {
 }
 
 if (!isAuthenticated()) {
-    // Redirect to the login page if not authenticated
     header("Location: login.php");
     exit();
 }
